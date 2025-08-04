@@ -13,14 +13,16 @@ import {
   Alert,
   Chip,
   Grid,
-  Paper
+  Paper,
+  TextField
 } from '@mui/material';
 import {
   PlayArrow as PlayIcon,
   CheckCircle as CheckIcon,
   Error as ErrorIcon,
   Warning as WarningIcon,
-  Info as InfoIcon
+  Info as InfoIcon,
+  Search as SearchIcon
 } from '@mui/icons-material';
 import { api } from '../services/api';
 
@@ -37,6 +39,10 @@ const GTDatasetAnalysis = ({ onError }) => {
     findings: [],
     human_impressions: []
   });
+  
+  // Search states
+  const [findingsSearch, setFindingsSearch] = useState('');
+  const [impressionSearch, setImpressionSearch] = useState('');
 
   // Load GT dataset data on component mount
   useEffect(() => {
@@ -120,6 +126,16 @@ const GTDatasetAnalysis = ({ onError }) => {
         return 'success';
     }
   };
+
+  // Filter findings based on search
+  const filteredFindings = gtData.findings.filter(finding => 
+    finding.label.toLowerCase().includes(findingsSearch.toLowerCase())
+  );
+
+  // Filter impressions based on search
+  const filteredImpressions = gtData.human_impressions.filter(impression => 
+    impression.label.toLowerCase().includes(impressionSearch.toLowerCase())
+  );
 
   const renderAnalysisResults = () => {
     if (!results) return null;
@@ -316,7 +332,7 @@ const GTDatasetAnalysis = ({ onError }) => {
               </FormControl>
             </Grid>
 
-            {/* Findings Dropdown */}
+            {/* Findings Dropdown with Search */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Findings</InputLabel>
@@ -328,7 +344,23 @@ const GTDatasetAnalysis = ({ onError }) => {
                   <MenuItem value="">
                     <em>Select Findings</em>
                   </MenuItem>
-                  {gtData.findings.map((finding, index) => (
+                  {/* Search Box */}
+                  <MenuItem disabled>
+                    <Box sx={{ width: '100%', mb: 1 }}>
+                      <TextField
+                        size="small"
+                        placeholder="Search findings..."
+                        value={findingsSearch}
+                        onChange={(e) => setFindingsSearch(e.target.value)}
+                        InputProps={{
+                          startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                        }}
+                        sx={{ width: '100%' }}
+                      />
+                    </Box>
+                  </MenuItem>
+                  {/* Filtered Results */}
+                  {filteredFindings.map((finding, index) => (
                     <MenuItem key={index} value={finding.value} sx={{ whiteSpace: 'pre-wrap', maxWidth: '600px' }}>
                       {finding.label}
                     </MenuItem>
@@ -337,7 +369,7 @@ const GTDatasetAnalysis = ({ onError }) => {
               </FormControl>
             </Grid>
 
-            {/* Human Impression Dropdown */}
+            {/* Human Impression Dropdown with Search */}
             <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <InputLabel>Human Impression</InputLabel>
@@ -349,7 +381,23 @@ const GTDatasetAnalysis = ({ onError }) => {
                   <MenuItem value="">
                     <em>Select Human Impression</em>
                   </MenuItem>
-                  {gtData.human_impressions.map((impression, index) => (
+                  {/* Search Box */}
+                  <MenuItem disabled>
+                    <Box sx={{ width: '100%', mb: 1 }}>
+                      <TextField
+                        size="small"
+                        placeholder="Search impressions..."
+                        value={impressionSearch}
+                        onChange={(e) => setImpressionSearch(e.target.value)}
+                        InputProps={{
+                          startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                        }}
+                        sx={{ width: '100%' }}
+                      />
+                    </Box>
+                  </MenuItem>
+                  {/* Filtered Results */}
+                  {filteredImpressions.map((impression, index) => (
                     <MenuItem key={index} value={impression.value} sx={{ whiteSpace: 'pre-wrap', maxWidth: '600px' }}>
                       {impression.label}
                     </MenuItem>
@@ -358,6 +406,23 @@ const GTDatasetAnalysis = ({ onError }) => {
               </FormControl>
             </Grid>
           </Grid>
+
+          {/* Search Results Summary */}
+          {(findingsSearch || impressionSearch) && (
+            <Box sx={{ mt: 2, mb: 2 }}>
+              <Chip
+                label={`Findings: ${filteredFindings.length} results`}
+                color="info"
+                size="small"
+                sx={{ mr: 1 }}
+              />
+              <Chip
+                label={`Impressions: ${filteredImpressions.length} results`}
+                color="info"
+                size="small"
+              />
+            </Box>
+          )}
 
           {/* Selection Summary */}
           <Box sx={{ mt: 2, mb: 2 }}>
