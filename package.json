@@ -1,0 +1,21 @@
+{
+  "name": "gender-mismatch-detection",
+  "version": "1.0.0",
+  "description": "Automated detection of gender mismatches in radiology reports",
+  "main": "index.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "radiology",
+    "gender-mismatch",
+    "healthcare",
+    "quality-assurance"
+  ],
+  "author": "Siddhartha Kosti",
+  "license": "MIT"
+} 
