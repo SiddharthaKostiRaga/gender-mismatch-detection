@@ -345,20 +345,19 @@ const GTDatasetAnalysis = ({ onError }) => {
                     <em>Select Findings</em>
                   </MenuItem>
                   {/* Search Box */}
-                  <MenuItem disabled>
-                    <Box sx={{ width: '100%', mb: 1 }}>
-                      <TextField
-                        size="small"
-                        placeholder="Search findings..."
-                        value={findingsSearch}
-                        onChange={(e) => setFindingsSearch(e.target.value)}
-                        InputProps={{
-                          startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                        }}
-                        sx={{ width: '100%' }}
-                      />
-                    </Box>
-                  </MenuItem>
+                  <Box sx={{ p: 1, borderBottom: '1px solid #e0e0e0' }}>
+                    <TextField
+                      size="small"
+                      placeholder="Search findings..."
+                      value={findingsSearch}
+                      onChange={(e) => setFindingsSearch(e.target.value)}
+                      onClick={(e) => e.stopPropagation()}
+                      InputProps={{
+                        startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                      }}
+                      sx={{ width: '100%' }}
+                    />
+                  </Box>
                   {/* Filtered Results */}
                   {filteredFindings.map((finding, index) => (
                     <MenuItem key={index} value={finding.value} sx={{ whiteSpace: 'pre-wrap', maxWidth: '600px' }}>
@@ -382,20 +381,19 @@ const GTDatasetAnalysis = ({ onError }) => {
                     <em>Select Human Impression</em>
                   </MenuItem>
                   {/* Search Box */}
-                  <MenuItem disabled>
-                    <Box sx={{ width: '100%', mb: 1 }}>
-                      <TextField
-                        size="small"
-                        placeholder="Search impressions..."
-                        value={impressionSearch}
-                        onChange={(e) => setImpressionSearch(e.target.value)}
-                        InputProps={{
-                          startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                        }}
-                        sx={{ width: '100%' }}
-                      />
-                    </Box>
-                  </MenuItem>
+                  <Box sx={{ p: 1, borderBottom: '1px solid #e0e0e0' }}>
+                    <TextField
+                      size="small"
+                      placeholder="Search impressions..."
+                      value={impressionSearch}
+                      onChange={(e) => setImpressionSearch(e.target.value)}
+                      onClick={(e) => e.stopPropagation()}
+                      InputProps={{
+                        startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                      }}
+                      sx={{ width: '100%' }}
+                    />
+                  </Box>
                   {/* Filtered Results */}
                   {filteredImpressions.map((impression, index) => (
                     <MenuItem key={index} value={impression.value} sx={{ whiteSpace: 'pre-wrap', maxWidth: '600px' }}>
