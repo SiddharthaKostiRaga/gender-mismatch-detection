@@ -4,6 +4,16 @@
 
 An automated system for detecting gender mismatches in radiology reports using keyword-based pattern recognition. The system identifies when medical reports contain gender-specific terms that don't match the patient's gender, helping to improve quality assurance in radiology.
 
+## 🚀 Quick Start
+
+**Live Application**: https://gender-mismatch-detection.netlify.app
+
+Try it with this sample:
+- **Report**: "Patient has prostate enlargement"
+- **Gender**: Female
+- **Age**: 45
+- **Expected**: High priority alert for "prostate" (male-specific term)
+
 ## Features
 
 - **Keyword-based Detection**: Pre-defined libraries of male/female specific medical terms
@@ -49,7 +59,7 @@ An automated system for detecting gender mismatches in radiology reports using k
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/gender-mismatch-detection.git
+   git clone https://github.com/SiddharthaKostiRaga/gender-mismatch-detection.git
    cd gender-mismatch-detection
    ```
 
@@ -61,11 +71,11 @@ An automated system for detecting gender mismatches in radiology reports using k
 3. **Set up environment variables**
    ```bash
    # Frontend (.env.local)
-   REACT_APP_SUPABASE_URL=your_supabase_url
+   REACT_APP_SUPABASE_URL=https://fpplmfsrhxkvnwunlfdl.supabase.co
    REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
    
    # Netlify Functions (in Netlify dashboard)
-   SUPABASE_URL=your_supabase_url
+   SUPABASE_URL=https://fpplmfsrhxkvnwunlfdl.supabase.co
    SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
 
@@ -160,6 +170,11 @@ netlify dev
 ```
 
 ## Deployment
+
+### Live Application
+- **Production URL**: https://gender-mismatch-detection.netlify.app
+- **Netlify Dashboard**: https://app.netlify.com/projects/gender-mismatch-detection
+- **GitHub Repository**: https://github.com/SiddharthaKostiRaga/gender-mismatch-detection
 
 ### Automatic Deployment
 - Push to `main` branch triggers automatic deployment
