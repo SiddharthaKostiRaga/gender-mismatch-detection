@@ -41,7 +41,7 @@ const GTDatasetAnalysis = ({ onError }) => {
   // Load GT dataset data on component mount
   useEffect(() => {
     loadGTDatasetData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadGTDatasetData = async () => {
     try {
