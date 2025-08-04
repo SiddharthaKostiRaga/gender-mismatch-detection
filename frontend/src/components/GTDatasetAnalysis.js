@@ -24,7 +24,7 @@ import {
 } from '@mui/icons-material';
 import { api } from '../services/api';
 
-const GTDatasetAnalysis = () => {
+const GTDatasetAnalysis = ({ onError }) => {
   const [gender, setGender] = useState('');
   const [findings, setFindings] = useState('');
   const [humanImpression, setHumanImpression] = useState('');
@@ -53,7 +53,9 @@ const GTDatasetAnalysis = () => {
         setError('Failed to load GT dataset data');
       }
     } catch (err) {
-      setError('Error loading GT dataset data: ' + err.message);
+      const errorMsg = 'Error loading GT dataset data: ' + err.message;
+      setError(errorMsg);
+      if (onError) onError(new Error(errorMsg));
     } finally {
       setDataLoading(false);
     }
@@ -77,7 +79,9 @@ const GTDatasetAnalysis = () => {
         setError(response.error || 'Analysis failed');
       }
     } catch (err) {
-      setError('Error during analysis: ' + err.message);
+      const errorMsg = 'Error during analysis: ' + err.message;
+      setError(errorMsg);
+      if (onError) onError(new Error(errorMsg));
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,22 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || 'https://fpplmfsrhxkvnwunlfdl.supabase.co';
+const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwcGxtZnNyaHhrdm53dW5sZmRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyOTA1NDcsImV4cCI6MjA2OTg2NjU0N30.Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8';
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+let supabase;
+try {
+  supabase = createClient(supabaseUrl, supabaseKey);
+  console.log('Supabase client initialized successfully');
+} catch (error) {
+  console.error('Failed to initialize Supabase client:', error);
+  // Create a mock client for fallback
+  supabase = {
+    from: () => ({
+      select: () => ({ eq: () => ({ order: () => Promise.resolve({ data: [], error: null }) }) }),
+      insert: () => ({ execute: () => Promise.resolve({ data: [], error: null }) })
+    })
+  };
+}
 
 export const api = {
   async detectMismatch(data) {

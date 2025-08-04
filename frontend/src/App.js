@@ -8,7 +8,8 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Paper
+  Paper,
+  Alert
 } from '@mui/material';
 import { DetectionForm } from './components/DetectionForm';
 import { ResultsDisplay } from './components/ResultsDisplay';
@@ -40,9 +41,24 @@ const theme = createTheme({
 function App() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Add error boundary
+  React.useEffect(() => {
+    console.log('App component mounted');
+    console.log('Environment variables:', {
+      SUPABASE_URL: process.env.REACT_APP_SUPABASE_URL,
+      SUPABASE_KEY: process.env.REACT_APP_SUPABASE_ANON_KEY ? 'SET' : 'NOT SET'
+    });
+  }, []);
 
   const handleResults = (detectionResults) => {
     setResults(detectionResults);
+  };
+
+  const handleError = (error) => {
+    console.error('App error:', error);
+    setError(error.message);
   };
 
   return (
@@ -58,6 +74,12 @@ function App() {
         </AppBar>
         
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+          
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             
             {/* Detection Form */}
@@ -78,7 +100,7 @@ function App() {
 
             {/* GT Dataset Analysis */}
             <Paper elevation={3} sx={{ p: 3 }}>
-              <GTDatasetAnalysis />
+              <GTDatasetAnalysis onError={handleError} />
             </Paper>
 
             {/* Stats Display */}
