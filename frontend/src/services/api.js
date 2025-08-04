@@ -86,5 +86,42 @@ export const api = {
       console.error('Patient references API error:', error);
       throw new Error('Failed to load patient reference keywords.');
     }
+  },
+
+  // GT Dataset Analysis Functions
+  async getGTDatasetData() {
+    try {
+      const response = await fetch('/.netlify/functions/get-gt-dataset');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('GT Dataset API error:', error);
+      throw new Error('Failed to load GT dataset data.');
+    }
+  },
+
+  async analyzeGTDataset(analysisData) {
+    try {
+      const response = await fetch('/.netlify/functions/gt-dataset-analysis', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(analysisData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('GT Dataset Analysis API error:', error);
+      throw new Error('Failed to analyze GT dataset.');
+    }
   }
 }; 

@@ -13,6 +13,7 @@ import {
 import { DetectionForm } from './components/DetectionForm';
 import { ResultsDisplay } from './components/ResultsDisplay';
 import { StatsDisplay } from './components/StatsDisplay';
+import GTDatasetAnalysis from './components/GTDatasetAnalysis';
 
 const theme = createTheme({
   palette: {
@@ -74,6 +75,11 @@ function App() {
                 <ResultsDisplay results={results} />
               </Paper>
             )}
+
+            {/* GT Dataset Analysis */}
+            <Paper elevation={3} sx={{ p: 3 }}>
+              <GTDatasetAnalysis />
+            </Paper>
 
             {/* Stats Display */}
             <Paper elevation={3} sx={{ p: 3 }}>
