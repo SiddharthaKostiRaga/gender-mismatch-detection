@@ -172,14 +172,38 @@ const GTDatasetAnalysis = ({ onError }) => {
               </Typography>
             )}
             {results.findings && (
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                <strong>Findings:</strong> {results.findings.substring(0, 200)}...
-              </Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }}>
+                  Findings:
+                </Typography>
+                <Typography variant="body2" sx={{ 
+                  whiteSpace: 'pre-wrap', 
+                  bgcolor: 'grey.100', 
+                  p: 1, 
+                  borderRadius: 1,
+                  maxHeight: '200px',
+                  overflow: 'auto'
+                }}>
+                  {results.findings}
+                </Typography>
+              </Box>
             )}
             {results.human_impression && (
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                <strong>Human Impression:</strong> {results.human_impression.substring(0, 200)}...
-              </Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }}>
+                  Human Impression:
+                </Typography>
+                <Typography variant="body2" sx={{ 
+                  whiteSpace: 'pre-wrap', 
+                  bgcolor: 'grey.100', 
+                  p: 1, 
+                  borderRadius: 1,
+                  maxHeight: '200px',
+                  overflow: 'auto'
+                }}>
+                  {results.human_impression}
+                </Typography>
+              </Box>
             )}
           </Paper>
 
@@ -305,7 +329,7 @@ const GTDatasetAnalysis = ({ onError }) => {
                     <em>Select Findings</em>
                   </MenuItem>
                   {gtData.findings.map((finding, index) => (
-                    <MenuItem key={index} value={finding.value}>
+                    <MenuItem key={index} value={finding.value} sx={{ whiteSpace: 'pre-wrap', maxWidth: '600px' }}>
                       {finding.label}
                     </MenuItem>
                   ))}
@@ -326,7 +350,7 @@ const GTDatasetAnalysis = ({ onError }) => {
                     <em>Select Human Impression</em>
                   </MenuItem>
                   {gtData.human_impressions.map((impression, index) => (
-                    <MenuItem key={index} value={impression.value}>
+                    <MenuItem key={index} value={impression.value} sx={{ whiteSpace: 'pre-wrap', maxWidth: '600px' }}>
                       {impression.label}
                     </MenuItem>
                   ))}

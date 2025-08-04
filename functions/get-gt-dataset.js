@@ -46,15 +46,15 @@ exports.handler = async (event, context) => {
     const allFindings = gtData.map(record => record.findings).filter(Boolean);
     const allHumanImpressions = gtData.map(record => record.human_impression).filter(Boolean);
 
-    // Create truncated versions for dropdown display
+    // Create dropdown options with full text
     const findingsForDropdown = allFindings.map(finding => ({
       value: finding,
-      label: finding.length > 100 ? finding.substring(0, 100) + '...' : finding
+      label: finding
     }));
 
     const impressionsForDropdown = allHumanImpressions.map(impression => ({
       value: impression,
-      label: impression.length > 100 ? impression.substring(0, 100) + '...' : impression
+      label: impression
     }));
 
     const response = {
